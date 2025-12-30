@@ -134,18 +134,18 @@ export default function Home() {
             </div>
             
             <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent min-h-[80px]">
-              <SimpleTypewriter text="Hi! I'm Sooraj!" delay={100} />
+              <SimpleTypewriter text="Hi! I'm Sooraj" delay={100} />
             </h1>
             
-            <div className="font-mono text-slate-400 text-lg md:text-xl mb-8 max-w-2xl mx-auto min-h-[100px]">
+            <div className="font-mono text-slate-400 text-xl md:text-2xl mb-8 max-w-2xl mx-auto min-h-[100px]">
               CS Student @ McMaster University <br/>
               
-              <span className="text-sm block mt-2">
-                Specializing in <strong className="text-cyan-400 font-bold tracking-wide">Cybersecurity</strong>
+              <span className="text-base block mt-2">
+              Specializing in <strong className="text-cyan-400 font-bold tracking-wide">Cybersecurity</strong>
               </span>
 
-              <span className="text-sm block mt-1">
-                Passionate about{' '}
+              <span className="text-base block mt-1">
+              Passionate about{' '}
                 <LoopingTypewriter 
                   phrases={[
                     "Full Stack Development", 
@@ -215,7 +215,7 @@ export default function Home() {
                         This past summer, I interned with <strong className="text-slate-200">CGI’s Security Operations Center (SOC)</strong>, gaining real-world exposure to how cybersecurity teams operate. It was a great experience that allowed me to apply concepts from class and self-study to practical situations.
                     </p>
                     <p>
-                        Beyond security, I’m fascinated by how data tells stories and how AI creates new solutions. I’m always eager to learn—whether it’s experimenting with projects, picking up new tools, or tackling challenges that push me to think differently.
+                        Beyond security, I’m fascinated by how data tells stories and how AI creates new solutions. I’m always eager to learn - whether it’s experimenting with projects, picking up new tools, or tackling challenges that push me to think differently.
                     </p>
                     <p className="italic text-slate-500 border-l-2 border-cyan-500/50 pl-4">
                         If you’re into tech, data, AI, or security and want to chat, I’d love to hear from you.
