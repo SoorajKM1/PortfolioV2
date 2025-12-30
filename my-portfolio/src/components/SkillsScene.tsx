@@ -1,19 +1,18 @@
 'use client';
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text, Float } from '@react-three/drei';
+import { Text } from '@react-three/drei';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
+// Skills section
 const skills = [
-  "Python", "Linux", "HIDS", "React", "Next.js", 
-  "Cybersecurity", "Bash", "Git", "Docker", "SQL", 
-  "Networking", "FIM", "Tailwind", "Three.js"
+  "Python", "C", "Java", "Haskell", "SQL", 
+  "QRadar", "Wireshark", "Linux", "Git", "React", 
+  "ELM", "Pandas", "NumPy", "Metasploit", "HTML/CSS"
 ];
 
 function Word({ children, ...props }: { children: string; position: THREE.Vector3 }) {
-  const fontUrl = '/fonts/Inter-Bold.ttf' 
-  
   return (
     <Text
       color="#22d3ee" // Cyan
