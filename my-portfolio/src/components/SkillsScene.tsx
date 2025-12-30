@@ -7,7 +7,7 @@ import * as THREE from 'three';
 
 // Skills section
 const skills = [
-  "Python", "C", "Java", "Haskell", "SQL", 
+  "Python", "C", "JavaScript", "Haskell", "SQL", 
   "QRadar", "Wireshark", "Linux", "Git", "React", 
   "ELM", "Pandas", "NumPy", "Metasploit", "HTML/CSS"
 ];
