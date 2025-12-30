@@ -1,31 +1,31 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Terminal, Github, ExternalLink, Mail, ShieldCheck, Cpu } from 'lucide-react';
+import { Terminal, Github, ExternalLink, Mail, ShieldCheck, Cpu, Brain, Activity } from 'lucide-react';
 import HeroScene from '@/components/HeroScene';
 import SkillsScene from '@/components/SkillsScene';
 
 const projects = [
   {
     title: "Python HIDS",
-    description: "A lightweight, multi-threaded Host-Based Intrusion Detection System. Monitors Linux environments for unauthorized file modifications and brute-force attempts.",
+    description: "A Host-Based Intrusion Detection System for Linux. Features multi-threaded file integrity monitoring (FIM) and log analysis to detect SSH brute-force attacks in real-time.",
     tags: ["Python", "Linux", "Security", "Threading"],
-    link: "#",
+    link: "https://github.com/SoorajKM1/Host-Based-Intrusion-Detection-System-HIDS-",
     icon: <ShieldCheck className="text-cyan-400 w-8 h-8 mb-4" />
   },
   {
-    title: "Secure Chat App",
-    description: "End-to-end encrypted messaging application built with React and Socket.io, featuring AES-256 encryption for all data in transit.",
-    tags: ["React", "Node.js", "Cryptography"],
-    link: "#",
-    icon: <Terminal className="text-green-400 w-8 h-8 mb-4" />
+    title: "Life-Link-Live",
+    description: "Emergency response web app designed for natural disasters. Focuses on rapid accessibility and clear user flows to help users access critical resources under stress.",
+    tags: ["React", "Emergency Response", "UX Design"],
+    link: "https://github.com/SoorajKM1/MEC--2025",
+    icon: <Activity className="text-red-400 w-8 h-8 mb-4" />
   },
   {
-    title: "Custom PC Build Picker",
-    description: "An interactive hardware compatibility checker for PC builders, utilizing a scraped database of GPU/CPU specifications.",
-    tags: ["Next.js", "SQL", "Hardware"],
-    link: "#",
-    icon: <Cpu className="text-purple-400 w-8 h-8 mb-4" />
+    title: "AuxiHelper",
+    description: "AI-driven platform connecting users with service providers. Uses Cohere APIs and Google Cloud Vision to analyze user files and provide intelligent solution matching.",
+    tags: ["Python", "Cohere API", "Google Cloud", "AI"],
+    link: "https://github.com/SoorajKM1/AuxiHelper",
+    icon: <Brain className="text-purple-400 w-8 h-8 mb-4" />
   }
 ];
 
@@ -38,7 +38,7 @@ export default function Home() {
         <HeroScene />
         
         {/* Overlay Content */}
-        <div className="z-10 text-center px-4 max-w-4xl mx-auto pointer-events-none">
+        <div className="z-10 text-center px-4 max-w-5xl mx-auto pointer-events-none">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -49,27 +49,50 @@ export default function Home() {
               <span className="text-cyan-400 font-mono text-xs tracking-wider">SYSTEM ONLINE</span>
             </div>
             
-            <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">
-              [YOUR NAME]
+            <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">
+              SOORAJ KRISHNAMOORTHY MANIKANDAN
             </h1>
             
             <p className="font-mono text-cyan-200/80 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-              {`> Cybersecurity Analyst & Developer`} <br/>
-              {`> Building secure digital infrastructure.`}
+              CS Student @ McMaster University <br/>
+              <span className="text-slate-400 text-sm">Specializing in Cybersecurity & Full Stack Development</span>
             </p>
           </motion.div>
 
-          {/* Interactive Buttons (Enable pointer events) */}
+          {/* Interactive Buttons */}
           <motion.div 
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             transition={{ delay: 0.5 }}
             className="pointer-events-auto flex gap-4 justify-center"
           >
-            <a href="#projects" className="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all">
-              Initialize_Projects
+            <a href="#experience" className="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all">
+              View Experience
             </a>
           </motion.div>
+        </div>
+      </section>
+
+      {/* --- EXPERIENCE SECTION --- */}
+      <section id="experience" className="py-24 px-6 md:px-12 relative z-10 bg-slate-950 border-b border-slate-900">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-mono text-cyan-400 mb-12 flex items-center gap-4">
+            <span className="text-slate-600">01.</span> /experience_log
+          </h2>
+
+          <div className="relative border-l border-slate-800 ml-3 pl-8 pb-12 space-y-8">
+            {/* CGI Experience */}
+            <div className="relative">
+              <span className="absolute -left-[41px] top-1 w-5 h-5 rounded-full border-4 border-slate-950 bg-cyan-500"></span>
+              <h3 className="text-2xl font-bold text-slate-100">Cybersecurity Intern (Co-op)</h3>
+              <p className="text-cyan-400 font-mono text-sm mb-4">CGI Inc. | May 2025 - Aug 2025</p>
+              <ul className="space-y-2 text-slate-400 list-disc list-inside">
+                <li>Monitored and triaged security alerts using <strong>IBM QRadar</strong>, identifying threats per SOC protocols.</li>
+                <li>Conducted first-level investigations by filtering false positives and analyzing logs.</li>
+                <li>Documented incident details to ensure smooth handover to L2 analysts.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -77,7 +100,7 @@ export default function Home() {
       <section id="projects" className="py-24 px-6 md:px-12 relative z-10 bg-slate-950">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-mono text-cyan-400 mb-12 flex items-center gap-4">
-            <span className="text-slate-600">01.</span> /projects
+            <span className="text-slate-600">02.</span> /projects
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -120,7 +143,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- SKILLS & CONTACT SECTION --- */}
+      {/*SKILLS & CONTACT SECTION*/}
       <section className="py-24 bg-gradient-to-b from-slate-950 to-slate-900 relative">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
@@ -128,7 +151,7 @@ export default function Home() {
           <div className="h-[400px] lg:h-[600px] bg-slate-900/20 rounded-2xl border border-slate-800 overflow-hidden relative">
              <div className="absolute top-4 left-4 z-10">
                 <h2 className="text-2xl font-mono text-cyan-400">
-                  <span className="text-slate-600">02.</span> /stack_database
+                  <span className="text-slate-600">03.</span> /stack_database
                 </h2>
              </div>
              <SkillsScene />
@@ -137,25 +160,23 @@ export default function Home() {
           {/* Right: Terminal Contact Form */}
           <div>
             <h2 className="text-3xl font-mono text-cyan-400 mb-8">
-              <span className="text-slate-600">03.</span> /contact_uplink
+              <span className="text-slate-600">04.</span> /contact_uplink
             </h2>
             
             <div className="w-full bg-[#1e1e1e] rounded-lg shadow-2xl overflow-hidden border border-slate-700 font-mono text-sm">
-              {/* Terminal Header */}
               <div className="bg-[#2d2d2d] px-4 py-2 flex items-center gap-2 border-b border-slate-700">
                 <div className="flex gap-2">
                   <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
                 </div>
-                <div className="ml-4 text-slate-400 text-xs">user@portfolio:~</div>
+                <div className="ml-4 text-slate-400 text-xs">sooraj@portfolio:~</div>
               </div>
 
-              {/* Terminal Body (Form) */}
               <div className="p-6 text-slate-300 space-y-4">
                 <div className="flex flex-col gap-1">
                   <label className="text-cyan-500">$ input_email --set</label>
-                  <input type="email" placeholder="enter_email@address.com" className="bg-transparent border-b border-slate-600 focus:border-cyan-500 outline-none py-1 w-full text-slate-200" />
+                  <input type="email" placeholder="joesooraj@gmail.com" className="bg-transparent border-b border-slate-600 focus:border-cyan-500 outline-none py-1 w-full text-slate-200" />
                 </div>
                 
                 <div className="flex flex-col gap-1">
@@ -173,10 +194,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- FOOTER --- */}
       <footer className="py-8 text-center text-slate-600 font-mono text-xs border-t border-slate-900 bg-slate-950">
-        <p>Built with Next.js + React Three Fiber. Security First.</p>
-        <p>© {new Date().getFullYear()} [Your Name]. All systems operational.</p>
+        <p>Built with Next.js + React Three Fiber.</p>
+        <p>© {new Date().getFullYear()} Sooraj Krishnamoorthy Manikandan. All systems operational.</p>
       </footer>
 
     </main>
