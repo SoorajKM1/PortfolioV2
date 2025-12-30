@@ -15,8 +15,9 @@ const skills = [
 function Word({ children, ...props }: { children: string; position: THREE.Vector3 }) {
   return (
     <Text
-      color="#22d3ee" // Cyan
-      fontSize={0.5}
+      color="#67e8f9" 
+      fontSize={1.2}  
+      fontWeight={700} 
       {...props}
     >
       {children}

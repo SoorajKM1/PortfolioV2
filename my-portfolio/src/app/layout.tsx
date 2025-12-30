@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "My Portfolio | Cybersecurity & Dev",
+  title: "Sooraj's Portfolio",
   description: "Building secure & creative systems.",
 };
 
@@ -14,7 +14,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark scroll-smooth">
       <body className={`${inter.variable} ${jetbrains.variable} bg-slate-950 text-white antialiased`}>
         {children}
       </body>
