@@ -1,30 +1,59 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Terminal, Github, ExternalLink, Mail, ShieldCheck, Cpu, Brain, Activity } from 'lucide-react';
+import { Github, ExternalLink, Mail, ShieldCheck, Activity, Brain } from 'lucide-react';
 import HeroScene from '@/components/HeroScene';
 import SkillsScene from '@/components/SkillsScene';
+import { useState, useEffect } from 'react';
 
+// --- Typewriter Component ---
+const Typewriter = ({ text, delay = 100, infinite = false }) => {
+  const [currentText, setCurrentText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (currentIndex < text.length) {
+      timeout = setTimeout(() => {
+        setCurrentText(prev => prev + text[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, delay);
+    } else if (infinite) {
+      // Optional: Reset after delay if you want it to loop
+      // timeout = setTimeout(() => { setCurrentIndex(0); setCurrentText(''); }, 3000); 
+    }
+
+    return () => clearTimeout(timeout);
+  }, [currentIndex, delay, infinite, text]);
+
+  return <span>{currentText}</span>;
+};
+
+// --- Updated Project Data with Specific Links ---
 const projects = [
   {
     title: "Python HIDS",
     description: "A Host-Based Intrusion Detection System for Linux. Features multi-threaded file integrity monitoring (FIM) and log analysis to detect SSH brute-force attacks in real-time.",
     tags: ["Python", "Linux", "Security", "Threading"],
-    link: "https://github.com/SoorajKM1/Host-Based-Intrusion-Detection-System-HIDS-",
+    repoLink: "https://github.com/SoorajKM1/Host-Based-Intrusion-Detection-System-HIDS-", 
+    demoLink: null, 
     icon: <ShieldCheck className="text-cyan-400 w-8 h-8 mb-4" />
   },
   {
     title: "Life-Link-Live",
     description: "Emergency response web app designed for natural disasters. Focuses on rapid accessibility and clear user flows to help users access critical resources under stress.",
     tags: ["React", "Emergency Response", "UX Design"],
-    link: "https://github.com/SoorajKM1/MEC--2025",
+    repoLink: "https://github.com/SoorajKM1/MEC--2025", 
+    demoLink: "https://life-link-live.vercel.app/", 
     icon: <Activity className="text-red-400 w-8 h-8 mb-4" />
   },
   {
     title: "AuxiHelper",
     description: "AI-driven platform connecting users with service providers. Uses Cohere APIs and Google Cloud Vision to analyze user files and provide intelligent solution matching.",
     tags: ["Python", "Cohere API", "Google Cloud", "AI"],
-    link: "https://github.com/SoorajKM1/AuxiHelper",
+    repoLink: "https://github.com/SoorajKM1/AuxiHelper",
+    demoLink: null,
     icon: <Brain className="text-purple-400 w-8 h-8 mb-4" />
   }
 ];
@@ -45,12 +74,14 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md mb-6">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
               <span className="text-cyan-400 font-mono text-xs tracking-wider">SYSTEM ONLINE</span>
             </div>
             
-            <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">
-              SOORAJ KRISHNAMOORTHY MANIKANDAN
+            
+            <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent min-h-[80px]">
+              <Typewriter text="Sooraj K. Manikandan" delay={100} />
+              <span className="animate-blink text-cyan-400">_</span>
             </h1>
             
             <p className="font-mono text-cyan-200/80 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
@@ -59,13 +90,13 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Interactive Buttons */}
           <motion.div 
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             transition={{ delay: 0.5 }}
             className="pointer-events-auto flex gap-4 justify-center"
           >
+            {/* The href here will now scroll smoothly due to the layout.tsx change */}
             <a href="#experience" className="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all">
               View Experience
             </a>
@@ -81,7 +112,6 @@ export default function Home() {
           </h2>
 
           <div className="relative border-l border-slate-800 ml-3 pl-8 pb-12 space-y-8">
-            {/* CGI Experience */}
             <div className="relative">
               <span className="absolute -left-[41px] top-1 w-5 h-5 rounded-full border-4 border-slate-950 bg-cyan-500"></span>
               <h3 className="text-2xl font-bold text-slate-100">Cybersecurity Intern (Co-op)</h3>
@@ -111,7 +141,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="group relative p-6 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all hover:bg-slate-900/80 backdrop-blur-sm"
+                className="group relative p-6 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all hover:bg-slate-900/80 backdrop-blur-sm flex flex-col"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 
@@ -121,7 +151,7 @@ export default function Home() {
                   {project.title}
                 </h3>
                 
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                <p className="text-slate-400 text-sm mb-6 leading-relaxed flex-grow">
                   {project.description}
                 </p>
 
@@ -133,9 +163,31 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="flex gap-4">
-                  <a href={project.link} className="text-slate-400 hover:text-white transition-colors"><Github size={20} /></a>
-                  <a href={project.link} className="text-slate-400 hover:text-white transition-colors"><ExternalLink size={20} /></a>
+                {/* LINKS FIX: Explicit buttons with correct z-index/clickability */}
+                <div className="flex gap-4 mt-auto relative z-20">
+                  {project.repoLink && (
+                    <a 
+                      href={project.repoLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors text-sm font-mono group/link"
+                    >
+                      <Github size={18} />
+                      <span className="group-hover/link:underline">Repo</span>
+                    </a>
+                  )}
+                  
+                  {project.demoLink && (
+                     <a 
+                      href={project.demoLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors text-sm font-mono group/link"
+                    >
+                      <ExternalLink size={18} />
+                      <span className="group-hover/link:underline">Live Demo</span>
+                    </a>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -143,7 +195,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/*SKILLS & CONTACT SECTION*/}
+      {/* --- SKILLS & CONTACT SECTION --- */}
       <section className="py-24 bg-gradient-to-b from-slate-950 to-slate-900 relative">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
@@ -195,8 +247,8 @@ export default function Home() {
       </section>
 
       <footer className="py-8 text-center text-slate-600 font-mono text-xs border-t border-slate-900 bg-slate-950">
-        <p>Built with Next.js + React Three Fiber.</p>
-        <p>© {new Date().getFullYear()} Sooraj Krishnamoorthy Manikandan. All systems operational.</p>
+        <p>Built with Next.js + React Three Fiber. Security First.</p>
+        <p>© {new Date().getFullYear()} Sooraj K. Manikandan. All systems operational.</p>
       </footer>
 
     </main>
