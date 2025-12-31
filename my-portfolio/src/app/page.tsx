@@ -267,7 +267,7 @@ export default function Home() {
                         I am currently working towards earning industry-level certifications in <strong className="text-cyan-400">Cybersecurity</strong> to further validate my skills and expertise in the domain.
                     </p>
                     <p>
-                        Beyond security, I’m fascinated by how data tells stories and how AI creates new solutions. I’m always eager to learn—whether it’s experimenting with projects, picking up new tools, or tackling challenges that push me to think differently.
+                        Beyond security, I’m fascinated by how data tells stories and how AI creates new solutions. I’m always eager to learn - whether it’s experimenting with projects, picking up new tools, or tackling challenges that push me to think differently.
                     </p>
                     <p className="italic text-slate-500 border-l-2 border-cyan-500/50 pl-4">
                         If you’re into tech, data, AI, or security and want to chat, I’d love to hear from you.
