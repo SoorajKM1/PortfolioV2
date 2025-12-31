@@ -7,7 +7,7 @@ import * as THREE from 'three';
 
 // 1. New Component: Handles the rotation of the stars
 function MovingStars() {
-  const ref = useRef<any>();
+  const ref = useRef<any>(null);
   useFrame((state, delta) => {
     if (ref.current) {
       // Rotate the stars slightly every frame

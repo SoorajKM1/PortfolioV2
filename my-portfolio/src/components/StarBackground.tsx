@@ -6,7 +6,7 @@ import { useRef } from 'react';
 import * as THREE from 'three';
 
 function StarField() {
-  const ref = useRef<any>();
+  const ref = useRef<any>(null);
   useFrame((state, delta) => {
     // Rotates the stars slightly for a dynamic feel
     if (ref.current) {
