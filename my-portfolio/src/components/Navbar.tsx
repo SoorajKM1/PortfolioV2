@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Terminal } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Navbar() {
   const scrollToSection = (id: string) => {
@@ -34,8 +35,8 @@ export default function Navbar() {
           <span className="w-2.5 h-5 bg-green-500 animate-blink"></span>
         </div>
 
-        {/* Right: Navigation Commands */}
-        <div className="hidden md:flex gap-6 text-sm">
+        {/* Right: Navigation Commands & Icons */}
+        <div className="hidden md:flex items-center gap-6 text-sm">
           {['about', 'experience', 'projects', 'skills'].map((item) => (
             <button 
               key={item}
@@ -47,17 +48,42 @@ export default function Navbar() {
             </button>
           ))}
           
-          {/* Resume Button styled as a .sh file */}
+          {/* Divider */}
+          <div className="h-4 w-[1px] bg-slate-800 mx-2"></div>
+
+          {/* Social Icons */}
+          <div className="flex gap-4">
+            <a 
+              href="https://github.com/SoorajKM1" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-white transition-colors"
+              title="GitHub"
+            >
+              <FaGithub size={20} />
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/sooraj-krishnamoorthy-manikandan/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-blue-400 transition-colors"
+              title="LinkedIn"
+            >
+              <FaLinkedin size={20} />
+            </a>
+          </div>
+
+          {/* Resume Button */}
           <a 
             href="/resume.pdf" 
             download="Sooraj_Manikandan_Resume"
-            className="text-yellow-500 hover:text-yellow-400 transition-colors ml-4"
+            className="text-yellow-500 hover:text-yellow-400 transition-colors border border-yellow-500/30 hover:border-yellow-500 px-3 py-1 rounded bg-yellow-500/10"
           >
             resume.sh
           </a>
         </div>
 
-        {/* Mobile Menu Icon (Placeholder for responsiveness) */}
+        {/* Mobile Menu Icon (Placeholder) */}
         <div className="md:hidden text-green-500 animate-pulse">
            _
         </div>

@@ -189,11 +189,11 @@ export default function Home() {
             <div className="font-mono text-slate-400 text-lg md:text-xl mb-8 max-w-2xl mx-auto min-h-[100px]">
               CS Student @ McMaster University <br/>
               
-              <span className="text-sm block mt-2">
+              <span className="text-lg block mt-2">
                 Specializing in <strong className="text-cyan-400 font-bold tracking-wide">Cybersecurity</strong>
               </span>
 
-              <span className="text-sm block mt-1">
+              <span className="text-lg block mt-1">
                 Passionate about{' '}
                 <LoopingTypewriter 
                   phrases={[
@@ -505,8 +505,8 @@ export default function Home() {
       </section>
 
       <footer className="py-8 text-center text-slate-600 font-mono text-xs border-t border-slate-900 bg-slate-950/80 backdrop-blur-sm relative z-10">
-        <p>Built with Next.js + React. Security First.</p>
-        <p>© {new Date().getFullYear()} Sooraj K. Manikandan. All systems operational.</p>
+        <p>Built with Next.js + React</p>
+        <p>© {new Date().getFullYear()} Sooraj Krishnamoorthy Manikandan. All systems operational!</p>
       </footer>
 
     </main>
