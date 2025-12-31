@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Mail, ShieldCheck, Activity, Brain, Download, User, Terminal } from 'lucide-react';
+import { Github, ExternalLink, Mail, ShieldCheck, Activity, Brain, Download, User, Terminal, Search, ChevronDown, ChevronUp } from 'lucide-react';
 import HeroScene from '@/components/HeroScene';
 import Navbar from '@/components/Navbar';
 import StarBackground from '@/components/StarBackground';
@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 // Import Brand Icons
-import { FaPython, FaJava, FaReact, FaLinux, FaGitAlt, FaDocker, FaHtml5, FaCss3Alt, FaShieldAlt } from 'react-icons/fa';
+import { FaPython, FaJava, FaReact, FaLinux, FaGitAlt, FaDocker, FaHtml5, FaShieldAlt } from 'react-icons/fa';
 import { SiC, SiJavascript, SiTypescript, SiMetasploit, SiKalilinux, SiWireshark, SiPostgresql, SiTailwindcss } from 'react-icons/si';
 
 // --- Advanced Looping Typewriter ---
@@ -87,6 +87,14 @@ const projects = [
     repoLink: "https://github.com/SoorajKM1/AuxiHelper",
     demoLink: null,
     icon: <Brain className="text-purple-400 w-8 h-8 mb-4" />
+  },
+  {
+    title: "MacFind (HCI Project)",
+    description: "A frontend lost-and-found application for McMaster University. Applied human-centered design principles and usability heuristics to create an accessible interface.",
+    tags: ["React", "HCI", "UX Heuristics", "Frontend"],
+    repoLink: "#", 
+    demoLink: null,
+    icon: <Search className="text-yellow-400 w-8 h-8 mb-4" />
   }
 ];
 
@@ -110,11 +118,32 @@ const skills = [
 ];
 
 export default function Home() {
+  // State for Projects "Load More"
+  const [showAllProjects, setShowAllProjects] = useState(false);
+  const visibleProjects = showAllProjects ? projects : projects.slice(0, 3);
+
+  // State for Contact Form
+  const [emailContent, setEmailContent] = useState({ email: '', message: '' });
+
+  // --- Function to Handle Email Sending ---
+  const handleSendEmail = () => {
+    // 1. Check if fields are empty (Optional basic validation)
+    if (!emailContent.email || !emailContent.message) {
+      alert("Please enter both your email and a message.");
+      return;
+    }
+
+    // 2. Construct the mailto link
+    const subject = `Portfolio Contact from ${emailContent.email}`;
+    const body = `From: ${emailContent.email}%0D%0A%0D%0A${emailContent.message}`;
+    
+    // 3. Open default email client
+    window.location.href = `mailto:joesooraj@gmail.com?subject=${subject}&body=${body}`;
+  };
+
   return (
-    // Global Blue Background with Star Overlay
     <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500/30 relative">
       
-      {/* 1. Global Components */}
       <Navbar />
       <StarBackground />
 
@@ -134,18 +163,18 @@ export default function Home() {
             </div>
             
             <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent min-h-[80px]">
-              <SimpleTypewriter text="Hi! I'm Sooraj" delay={100} />
+              <SimpleTypewriter text="Hi! I'm Sooraj!" delay={100} />
             </h1>
             
-            <div className="font-mono text-slate-400 text-xl md:text-2xl mb-8 max-w-2xl mx-auto min-h-[100px]">
+            <div className="font-mono text-slate-400 text-lg md:text-xl mb-8 max-w-2xl mx-auto min-h-[100px]">
               CS Student @ McMaster University <br/>
               
-              <span className="text-base block mt-2">
-              Specializing in <strong className="text-cyan-400 font-bold tracking-wide">Cybersecurity</strong>
+              <span className="text-sm block mt-2">
+                Specializing in <strong className="text-cyan-400 font-bold tracking-wide">Cybersecurity</strong>
               </span>
 
-              <span className="text-base block mt-1">
-              Passionate about{' '}
+              <span className="text-sm block mt-1">
+                Passionate about{' '}
                 <LoopingTypewriter 
                   phrases={[
                     "Full Stack Development", 
@@ -215,7 +244,10 @@ export default function Home() {
                         This past summer, I interned with <strong className="text-slate-200">CGI’s Security Operations Center (SOC)</strong>, gaining real-world exposure to how cybersecurity teams operate. It was a great experience that allowed me to apply concepts from class and self-study to practical situations.
                     </p>
                     <p>
-                        Beyond security, I’m fascinated by how data tells stories and how AI creates new solutions. I’m always eager to learn - whether it’s experimenting with projects, picking up new tools, or tackling challenges that push me to think differently.
+                        I am currently working towards earning industry-level certifications in <strong className="text-cyan-400">Cybersecurity</strong> to further validate my skills and expertise in the domain.
+                    </p>
+                    <p>
+                        Beyond security, I’m fascinated by how data tells stories and how AI creates new solutions. I’m always eager to learn—whether it’s experimenting with projects, picking up new tools, or tackling challenges that push me to think differently.
                     </p>
                     <p className="italic text-slate-500 border-l-2 border-cyan-500/50 pl-4">
                         If you’re into tech, data, AI, or security and want to chat, I’d love to hear from you.
@@ -265,8 +297,8 @@ export default function Home() {
             <span className="text-slate-600">03.</span> /projects
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {visibleProjects.map((project, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
@@ -323,6 +355,28 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+
+          {/* Load More Button */}
+          {projects.length > 3 && (
+            <div className="flex justify-center">
+              <button
+                onClick={() => setShowAllProjects(!showAllProjects)}
+                className="flex items-center gap-2 px-6 py-3 bg-slate-900/50 hover:bg-slate-800 text-cyan-400 border border-slate-700 hover:border-cyan-500 rounded-full transition-all group"
+              >
+                {showAllProjects ? (
+                  <>
+                    <ChevronUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+                    Collapse
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown size={20} className="group-hover:translate-y-1 transition-transform" />
+                    View More Projects
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -381,15 +435,28 @@ export default function Home() {
               <div className="p-6 text-slate-300 space-y-4">
                 <div className="flex flex-col gap-1">
                   <label className="text-cyan-500">$ input_email --set</label>
-                  <input type="email" placeholder="joesooraj@gmail.com" className="bg-transparent border-b border-slate-600 focus:border-cyan-500 outline-none py-1 w-full text-slate-200" />
+                  <input 
+                    type="email" 
+                    placeholder="enter_your_email" 
+                    className="bg-transparent border-b border-slate-600 focus:border-cyan-500 outline-none py-1 w-full text-slate-200"
+                    onChange={(e) => setEmailContent({...emailContent, email: e.target.value})}
+                  />
                 </div>
                 
                 <div className="flex flex-col gap-1">
                   <label className="text-cyan-500">$ input_message --write</label>
-                  <textarea rows={4} placeholder="_" className="bg-transparent border-b border-slate-600 focus:border-cyan-500 outline-none py-1 w-full text-slate-200 resize-none"></textarea>
+                  <textarea 
+                    rows={4} 
+                    placeholder="_" 
+                    className="bg-transparent border-b border-slate-600 focus:border-cyan-500 outline-none py-1 w-full text-slate-200 resize-none"
+                    onChange={(e) => setEmailContent({...emailContent, message: e.target.value})}
+                  ></textarea>
                 </div>
 
-                <button className="mt-4 px-4 py-2 bg-slate-700 hover:bg-cyan-600 hover:text-white text-cyan-400 rounded border border-slate-600 transition-all flex items-center gap-2 w-max">
+                <button 
+                  onClick={handleSendEmail}
+                  className="mt-4 px-4 py-2 bg-slate-700 hover:bg-cyan-600 hover:text-white text-cyan-400 rounded border border-slate-600 transition-all flex items-center gap-2 w-max"
+                >
                   <Mail size={16} />
                   execute_send()
                 </button>
