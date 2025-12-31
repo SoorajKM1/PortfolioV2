@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Mail, ShieldCheck, Activity, Brain, Download, User, Terminal, Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { Github, ExternalLink, Mail, ShieldCheck, Activity, Brain, Download, User, Terminal, Search, ChevronDown, ChevronUp, Loader2, CheckCircle } from 'lucide-react';
 import HeroScene from '@/components/HeroScene';
 import Navbar from '@/components/Navbar';
 import StarBackground from '@/components/StarBackground';
@@ -13,7 +13,7 @@ import { FaPython, FaJava, FaReact, FaLinux, FaGitAlt, FaDocker, FaHtml5, FaShie
 import { SiC, SiJavascript, SiTypescript, SiMetasploit, SiKalilinux, SiWireshark, SiPostgresql, SiTailwindcss } from 'react-icons/si';
 
 // --- Advanced Looping Typewriter ---
-const LoopingTypewriter = ({ phrases, typeSpeed = 100, deleteSpeed = 50, pauseDuration = 2000 }) => {
+const LoopingTypewriter = ({ phrases, typeSpeed = 100, deleteSpeed = 50, pauseDuration = 2000 }: { phrases: string[], typeSpeed?: number, deleteSpeed?: number, pauseDuration?: number }) => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
@@ -45,7 +45,7 @@ const LoopingTypewriter = ({ phrases, typeSpeed = 100, deleteSpeed = 50, pauseDu
 };
 
 // --- Simple Typewriter (For Name) ---
-const SimpleTypewriter = ({ text, delay = 100 }) => {
+const SimpleTypewriter = ({ text, delay = 100 }: { text: string, delay?: number }) => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -123,22 +123,42 @@ export default function Home() {
   const visibleProjects = showAllProjects ? projects : projects.slice(0, 3);
 
   // State for Contact Form
-  const [emailContent, setEmailContent] = useState({ email: '', message: '' });
+  const [formData, setFormData] = useState({ email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  // --- Function to Handle Email Sending ---
-  const handleSendEmail = () => {
-    // 1. Check if fields are empty (Optional basic validation)
-    if (!emailContent.email || !emailContent.message) {
-      alert("Please enter both your email and a message.");
-      return;
+  // --- DUAL SUBMISSION HANDLER ---
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      // Parallel Execution: Send to Discord AND Formspree at the same time
+      const [discordRes, formspreeRes] = await Promise.all([
+        // 1. Send to Discord (via your API route)
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        }),
+        // 2. Send to Formspree
+        fetch('https://formspree.io/f/xojqgaqb', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(formData),
+        })
+      ]);
+
+      // If EITHER works, we call it a success for the user (logging errors internally if needed)
+      if (discordRes.ok || formspreeRes.ok) {
+        setStatus('success');
+        setFormData({ email: '', message: '' }); // Clear form
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error("Submission Error:", error);
+      setStatus('error');
     }
-
-    // 2. Construct the mailto link
-    const subject = `Portfolio Contact from ${emailContent.email}`;
-    const body = `From: ${emailContent.email}%0D%0A%0D%0A${emailContent.message}`;
-    
-    // 3. Open default email client
-    window.location.href = `mailto:joesooraj@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -432,35 +452,52 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="p-6 text-slate-300 space-y-4">
+              {/* DUAL-SUBMIT FORM */}
+              <form onSubmit={handleSubmit} className="p-6 text-slate-300 space-y-4">
                 <div className="flex flex-col gap-1">
-                  <label className="text-cyan-500">$ input_email --set</label>
+                  <label htmlFor="email" className="text-cyan-500">$ input_email --set</label>
                   <input 
+                    id="email"
                     type="email" 
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="enter_your_email" 
                     className="bg-transparent border-b border-slate-600 focus:border-cyan-500 outline-none py-1 w-full text-slate-200"
-                    onChange={(e) => setEmailContent({...emailContent, email: e.target.value})}
                   />
                 </div>
                 
                 <div className="flex flex-col gap-1">
-                  <label className="text-cyan-500">$ input_message --write</label>
+                  <label htmlFor="message" className="text-cyan-500">$ input_message --write</label>
                   <textarea 
+                    id="message"
+                    required
                     rows={4} 
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
                     placeholder="_" 
                     className="bg-transparent border-b border-slate-600 focus:border-cyan-500 outline-none py-1 w-full text-slate-200 resize-none"
-                    onChange={(e) => setEmailContent({...emailContent, message: e.target.value})}
                   ></textarea>
                 </div>
 
                 <button 
-                  onClick={handleSendEmail}
-                  className="mt-4 px-4 py-2 bg-slate-700 hover:bg-cyan-600 hover:text-white text-cyan-400 rounded border border-slate-600 transition-all flex items-center gap-2 w-max"
+                  type="submit"
+                  disabled={status === 'loading' || status === 'success'}
+                  className={`mt-4 px-4 py-2 rounded border transition-all flex items-center gap-2 w-max
+                    ${status === 'success' 
+                      ? 'bg-green-500/20 text-green-400 border-green-500/50' 
+                      : 'bg-slate-700 hover:bg-cyan-600 hover:text-white text-cyan-400 border-slate-600'}
+                  `}
                 >
-                  <Mail size={16} />
-                  execute_send()
+                  {status === 'loading' && <Loader2 size={16} className="animate-spin" />}
+                  {status === 'success' && <CheckCircle size={16} />}
+                  
+                  {status === 'idle' && 'execute_send()'}
+                  {status === 'loading' && 'sending_packet...'}
+                  {status === 'success' && 'transmission_complete'}
+                  {status === 'error' && 'error_retry()'}
                 </button>
-              </div>
+              </form>
             </div>
           </div>
 
