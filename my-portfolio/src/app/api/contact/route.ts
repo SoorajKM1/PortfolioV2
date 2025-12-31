@@ -5,12 +5,12 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { email, message } = body;
 
-    // 1. Validate the input
+    // Basic validation
     if (!email || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // 2. Prepare the Discord payload
+    // Prepare the Discord payload
     const discordPayload = {
       embeds: [
         {
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       ]
     };
 
-    // 3. Send to Discord (Using the environment variable)
+    //  Send to Discord
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
     
     if (webhookUrl) {
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       });
     }
 
-    // 4. Return success
+    // Return success
     return NextResponse.json({ success: true });
 
   } catch (error) {
