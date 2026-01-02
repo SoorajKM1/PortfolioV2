@@ -73,6 +73,14 @@ const projects = [
     icon: <ShieldCheck className="text-cyan-400 w-8 h-8 mb-4" />
   },
   {
+    title: "Virtual SOC Analyst Simulation",
+    description: "Simulated Tier 1 Analyst operations on TryHackMe. Utilized Splunk (SIEM) to query logs, identify Indicators of Compromise (IOCs), and triage threats like Phishing and Malware.",
+    tags: ["Splunk", "TryHackMe", "Security", "SOC"],
+    repoLink: null, 
+    demoLink: null, 
+    icon: <Terminal className="text-green-400 w-8 h-8 mb-4" />
+  },
+  {
     title: "Life-Link-Live",
     description: "Emergency response web app designed for natural disasters. Focuses on rapid accessibility and clear user flows to help users access critical resources under stress.",
     tags: ["React", "Emergency Response", "UX Design"],
@@ -81,20 +89,20 @@ const projects = [
     icon: <Activity className="text-red-400 w-8 h-8 mb-4" />
   },
   {
+    title: "MacFind (HCI Project)",
+    description: "A frontend lost-and-found application for McMaster University. Applied human-centered design principles and usability heuristics to create an accessible interface.",
+    tags: ["React", "HCI", "UX Heuristics", "Frontend"],
+    repoLink: null, 
+    demoLink: "https://mac-find-psi.vercel.app/",
+    icon: <Search className="text-yellow-400 w-8 h-8 mb-4" />
+  },
+  {
     title: "AuxiHelper",
     description: "AI-driven platform connecting users with service providers. Uses Cohere APIs and Google Cloud Vision to analyze user files and provide intelligent solution matching.",
     tags: ["Python", "Cohere API", "Google Cloud", "AI"],
     repoLink: "https://github.com/SoorajKM1/AuxiHelper",
-    demoLink: null,
+    demoLink: "https://devpost.com/software/auxihelper",
     icon: <Brain className="text-purple-400 w-8 h-8 mb-4" />
-  },
-  {
-    title: "MacFind (HCI Project)",
-    description: "A frontend lost-and-found application for McMaster University. Applied human-centered design principles and usability heuristics to create an accessible interface.",
-    tags: ["React", "HCI", "UX Heuristics", "Frontend"],
-    repoLink: "#", 
-    demoLink: null,
-    icon: <Search className="text-yellow-400 w-8 h-8 mb-4" />
   }
 ];
 
@@ -276,7 +284,7 @@ export default function Home() {
 
                 <div className="pt-4">
                     <a 
-                        href="/resume.pdf" 
+                        href="/Sooraj_Krishnamoorthy_Manikandan.pdf" 
                         download="Sooraj_Manikandan_Resume"
                         className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-slate-700 hover:border-cyan-500 rounded transition-all group"
                     >

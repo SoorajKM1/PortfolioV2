@@ -75,7 +75,7 @@ export default function Navbar() {
 
           {/* Resume Button */}
           <a 
-            href="/resume.pdf" 
+            href="/Sooraj_Krishnamoorthy_Manikandan.pdf" 
             download="Sooraj_Manikandan_Resume"
             className="text-yellow-500 hover:text-yellow-400 transition-colors border border-yellow-500/30 hover:border-yellow-500 px-3 py-1 rounded bg-yellow-500/10"
           >
